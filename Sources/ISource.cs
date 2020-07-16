@@ -21,7 +21,7 @@ namespace envars.Sources
     Dictionary<string, string> GetConfig(string path)
     {
       string configPath = GetConfigPath(path);
-      // Parse file (JSON, YAML or env)
+      // Parse file (YAML or env)
 
       return new Dictionary<string, string>();
     }
