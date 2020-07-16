@@ -5,9 +5,9 @@ using System.Text.RegularExpressions;
 
 namespace envars.Parsers
 {
-  public class EnvParser
+  public class EnvParser : IArrayParser
   {
-    public static bool TryParse(string[] envStrings, out Dictionary<string, string> jObject)
+    public bool TryParse(string[] envStrings, out Dictionary<string, string> jObject)
     {
       try
       {
@@ -21,19 +21,19 @@ namespace envars.Parsers
       }
     }
 
-    private static KeyValuePair<string, string> ParseLine(string line)
+    public KeyValuePair<string, string> ParseLine(string line)
     {
       var regex = new Regex("( *: *)|( *= *)|( +)", RegexOptions.IgnoreCase);
       if (regex.IsMatch(line))
       {
         var parts = regex.Split(line, 2);
         parts = parts.Select(s => s.Trim()).ToArray();
-        return new KeyValuePair<string, string>(parts[0], parts[1]);
+        return new KeyValuePair<string, string>(parts[0], parts[2]);
       }
       throw new FormatException($"Line does not contain valid separators. Valid separators are ':', '=' and spaces. Line value was: {line}");
     }
 
-    private static Dictionary<string, string> ParseLines(string[] lines, bool throwOnInvalidValues = true)
+    public Dictionary<string, string> ParseLines(string[] lines, bool throwOnInvalidValues = true)
     {
       var result = new Dictionary<string, string>();
       foreach (var line in lines)

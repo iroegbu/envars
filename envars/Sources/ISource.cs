@@ -27,11 +27,11 @@ namespace envars.Sources
       if (File.Exists(configPath))
       {
 
-        if (EnvParser.TryParse(File.ReadAllLines(path), out var result))
+        if ((new EnvParser()).TryParse(File.ReadAllLines(path), out var result))
         {
           return result;
         }
-        else if (JSONParser.TryParse(File.ReadAllText(path), out result))
+        else if ((new JSONParser()).TryParse(File.ReadAllText(path), out result))
         {
           return result;
         }
