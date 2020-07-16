@@ -14,9 +14,8 @@ namespace envars.Sources
     public Dictionary<string, string> GetVariables(string path)
     {
       ISource source = this;
-      string configPath = source.GetConfigPath(path);
+      var configPath = source.GetConfig(path);
 
-      // parse file content (YAML, JSON or .env parser)
       throw new NotImplementedException();
     }
   }
