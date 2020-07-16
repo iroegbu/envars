@@ -14,9 +14,7 @@ namespace envars.Sources
     public Dictionary<string, string> GetVariables(string path)
     {
       ISource source = this;
-      var configPath = source.GetConfig(path);
-
-      throw new NotImplementedException();
+      return source.GetConfig(path);
     }
   }
 }
