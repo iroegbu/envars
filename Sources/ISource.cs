@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Json.Serialization;
+using envars.Parsers;
 
 namespace envars.Sources
 {
@@ -21,9 +24,26 @@ namespace envars.Sources
     Dictionary<string, string> GetConfig(string path)
     {
       string configPath = GetConfigPath(path);
-      // Parse file (YAML or env)
+      if (File.Exists(configPath))
+      {
 
-      return new Dictionary<string, string>();
+        if (EnvParser.TryParse(File.ReadAllLines(path), out var result))
+        {
+          return result;
+        }
+        else if (JSONParser.TryParse(File.ReadAllText(path), out result))
+        {
+          return result;
+        }
+        else
+        {
+          throw new FormatException();
+        }
+      }
+      else
+      {
+        throw new FileNotFoundException();
+      }
     }
   }
 }
