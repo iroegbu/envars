@@ -4,9 +4,9 @@ using System.Text.Json;
 
 namespace envars.Parsers
 {
-  public class JSONParser
+  public class JSONParser : IStringParser
   {
-    public static bool TryParse(string json, out Dictionary<string, string> jObject)
+    public bool TryParse(string json, out Dictionary<string, string> jObject)
     {
       try
       {
