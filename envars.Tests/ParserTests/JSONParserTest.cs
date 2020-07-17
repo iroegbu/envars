@@ -12,13 +12,14 @@ namespace envars.Tests
       _envParser = new JSONParser();
     }
 
-    [Fact]
-    public void TryParse_ShouldPass()
+    [Theory]
+    [InlineData("{\"Key\":\"Value\",\"Key2\":\"Value2\"}", "Value")]
+    public void TryParse_ShouldPass(string line, string expected)
     {
-      var parsed = _envParser.TryParse("{\"Key\":\"Value\",\"Key2\":\"Value2\"}", out var result);
+      var parsed = _envParser.TryParse(line, out var result);
 
-      Assert.Equal(parsed, true);
-      Assert.Equal(result["Key"], "Value");
+      Assert.True(parsed);
+      Assert.Equal(expected, result["Key"]);
     }
 
     [Fact]
@@ -26,8 +27,8 @@ namespace envars.Tests
     {
       var parsed = _envParser.TryParse("Invalid JSON string", out var result);
 
-      Assert.Equal(parsed, false);
-      Assert.Equal(result, null);
+      Assert.False(parsed);
+      Assert.Null(result);
     }
   }
 }
