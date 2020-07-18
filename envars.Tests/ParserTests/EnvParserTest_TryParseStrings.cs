@@ -4,10 +4,10 @@ using Xunit;
 
 namespace envars.Tests
 {
-  public class EnvParserTest_TryParse
+  public class EnvParserTest_TryParseStrings
   {
     private readonly EnvParser _envParser;
-    public EnvParserTest_TryParse()
+    public EnvParserTest_TryParseStrings()
     {
       _envParser = new EnvParser();
     }
@@ -18,7 +18,7 @@ namespace envars.Tests
     [InlineData(new string[] { "Key=Value", "Key2=Value2", "Key3=Value3" }, 3)]
     public void TryParse_ShouldPass_Count(string[] lines, int expected)
     {
-      var parsed = _envParser.TryParse(lines, out var result);
+      var parsed = _envParser.TryParseStrings(lines, out var result);
 
       Assert.True(parsed);
       Assert.Equal(expected, result.Count);
@@ -30,7 +30,7 @@ namespace envars.Tests
     [InlineData(new string[] { "Key=Value2", "Key2=Value2", "Key3=Value3" }, "Value2")]
     public void TryParse_ShouldPass_GetValue(string[] lines, string expected)
     {
-      var parsed = _envParser.TryParse(lines, out var result);
+      var parsed = _envParser.TryParseStrings(lines, out var result);
 
       Assert.True(parsed);
       Assert.Equal(expected, result["Key"]);
@@ -39,7 +39,7 @@ namespace envars.Tests
     [Fact]
     public void TryParse_ShouldFail()
     {
-      var parsed = _envParser.TryParse(new string[] { "Key=Value", "Key2*Value2" }, out var result);
+      var parsed = _envParser.TryParseStrings(new string[] { "Key=Value", "Key2*Value2" }, out var result);
       Assert.False(parsed);
     }
   }

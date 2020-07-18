@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 
-interface IArrayParser
+interface IParser
 {
-  bool TryParse(string[] envStrings, out Dictionary<string, string> jObject);
+  bool TryParseString(string envString, out Dictionary<string, string> jObject);
+  bool TryParseStrings(string[] envStrings, out Dictionary<string, string> jObject);
 }

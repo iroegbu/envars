@@ -4,10 +4,10 @@ using Xunit;
 
 namespace envars.Tests
 {
-  public class JSONParserTest
+  public class JSONParserTest_TryPaseStrings
   {
     private readonly JSONParser _envParser;
-    public JSONParserTest()
+    public JSONParserTest_TryPaseStrings()
     {
       _envParser = new JSONParser();
     }
@@ -16,7 +16,7 @@ namespace envars.Tests
     [InlineData("{\"Key\":\"Value\",\"Key2\":\"Value2\"}", "Value")]
     public void TryParse_ShouldPass(string line, string expected)
     {
-      var parsed = _envParser.TryParse(line, out var result);
+      var parsed = _envParser.TryParseString(line, out var result);
 
       Assert.True(parsed);
       Assert.Equal(expected, result["Key"]);
@@ -25,7 +25,7 @@ namespace envars.Tests
     [Fact]
     public void TryParse_ShouldFail()
     {
-      var parsed = _envParser.TryParse("Invalid JSON string", out var result);
+      var parsed = _envParser.TryParseString("Invalid JSON string", out var result);
 
       Assert.False(parsed);
       Assert.Null(result);

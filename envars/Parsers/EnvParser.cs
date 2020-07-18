@@ -5,9 +5,24 @@ using System.Text.RegularExpressions;
 
 namespace envars.Parsers
 {
-  public class EnvParser : IArrayParser
+  public class EnvParser : IParser
   {
-    public bool TryParse(string[] envStrings, out Dictionary<string, string> jObject)
+    public bool TryParseString(string envString, out Dictionary<string, string> jObject)
+    {
+      try
+      {
+        var result = ParseLine(envString);
+        jObject = new Dictionary<string, string> { { result.Key, result.Value } };
+        return true;
+      }
+      catch
+      {
+        jObject = null;
+        return false;
+      }
+    }
+
+    public bool TryParseStrings(string[] envStrings, out Dictionary<string, string> jObject)
     {
       try
       {
