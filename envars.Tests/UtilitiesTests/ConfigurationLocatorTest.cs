@@ -12,7 +12,7 @@ namespace envars.Tests.UtilitiesTests
         }
 
         [Theory]
-        [InlineData("./")]
+        [InlineData(".")]
         public void LocateConfigFileValue_ShouldPass(string ConfigPath)
         {
             var expected = Path.Combine(".", ".envars");
