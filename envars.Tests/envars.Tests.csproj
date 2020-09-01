@@ -17,4 +17,7 @@
     <ProjectReference Include="..\envars\envars.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UtilitiesTests\" />
+  </ItemGroup>
 </Project>

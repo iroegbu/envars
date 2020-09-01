@@ -4,6 +4,7 @@ project.lock.json
 .DS_Store
 *.pyc
 .vscode
+.vs
 *.suo
 *.user
 *.userosscache
