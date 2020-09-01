@@ -1,6 +1,7 @@
 ﻿using System;
 using envars.Utilities;
 using Xunit;
+using System.IO;
 
 namespace envars.Tests.UtilitiesTests
 {
@@ -11,10 +12,20 @@ namespace envars.Tests.UtilitiesTests
         }
 
         [Theory]
-        [InlineData("./", "./.envars")]
-        [InlineData("/var", "/var/.envars")]
-        public void LocateConfigFile_ShouldPass(string ConfigPath, string expected)
+        [InlineData("./")]
+        public void LocateConfigFileValue_ShouldPass(string ConfigPath)
         {
+            var expected = Path.Combine(".", ".envars");
+            var result = ConfigurationLocator.LocateConfigFile(ConfigPath);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData("etc")]
+        public void LocateConfigFileEmpty_ShouldPass(string ConfigPath)
+        {
+            var expected = Path.Combine("etc", ".envars");
             var result = ConfigurationLocator.LocateConfigFile(ConfigPath);
 
             Assert.Equal(expected, result);
